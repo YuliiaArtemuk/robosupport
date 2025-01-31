@@ -1,5 +1,5 @@
 .idea
 *.pyx
-*.env
+.env
 *.pyc
 server/app/data
