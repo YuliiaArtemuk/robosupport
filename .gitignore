@@ -1,0 +1,4 @@
+.idea
+*.pyx
+*.pyc
+server/app/data
