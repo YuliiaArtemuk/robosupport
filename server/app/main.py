@@ -96,6 +96,16 @@ def delete_instance(instance_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Instance not found")
     return db_instance
 
+<<<<<<< HEAD
+=======
+@app.put("/instances/{instance_id}", response_model=schemas.InstanceResponse)
+def update_instance(instance_id: int, instance: schemas.InstanceUpdate, db: Session = Depends(get_db)):
+    db_instance = actions.update_instance(db, instance_id=instance_id, update_data=instance.model_dump(exclude_unset=True))
+    if db_instance is None:
+        raise HTTPException(status_code=404, detail="Instance not found")
+    return db_instance
+
+>>>>>>> master
 
 # Log Endpoints
 @app.post("/logs/", response_model=schemas.LogResponse)
@@ -139,3 +149,23 @@ def delete_log(log_id: int, db: Session = Depends(get_db)):
     if db_log is None:
         raise HTTPException(status_code=404, detail="Log not found")
     return db_log
+<<<<<<< HEAD
+=======
+
+
+@app.get("/kinds/", response_model=list[schemas.KindResponse])
+def get_instance_kinds(db: Session = Depends(get_db)):
+    kinds = actions.get_instance_kinds(db)
+    return kinds
+
+@app.get("/tasks/", response_model=list[schemas.TaskResponse])
+def get_instance_tasks(db: Session = Depends(get_db)):
+    tasks = actions.get_instance_tasks(db)
+    return tasks
+
+@app.get("/software/", response_model=list[schemas.SoftwareResponse])
+def get_instance_software(db: Session = Depends(get_db)):
+    software_list = actions.get_instance_software(db)
+    return software_list
+
+>>>>>>> master

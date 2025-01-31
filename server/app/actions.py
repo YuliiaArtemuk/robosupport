@@ -43,12 +43,20 @@ def create_instance(db: Session, instance: schemas.InstanceCreate):
         manufacture_number=instance.manufacture_number,
         schedule_interval=instance.schedule_interval,
         last_ping=instance.last_ping,
+<<<<<<< HEAD
         sw_version=instance.sw_version,
         username=instance.username,
         pwd_salt=instance.pwd_salt,
         kind=instance.kind,
         task=instance.task,
         sw=instance.sw
+=======
+        username=instance.username,
+        pwd_salt=instance.pwd_salt,
+        kind_id=instance.kind_id if instance.kind_id is not None else None,
+        task_id=instance.task_id if instance.task_id is not None else None,
+        sw_id=instance.sw_id if instance.sw_id is not None else None,
+>>>>>>> master
     )
     db.add(db_instance)
     db.commit()
@@ -63,6 +71,31 @@ def delete_instance(db: Session, instance_id: int):
         db.commit()
     return db_instance
 
+<<<<<<< HEAD
+=======
+def update_instance(db: Session, instance_id: int, update_data: dict):
+    db_instance = db.query(models.Instance).filter(models.Instance.id == instance_id).first()
+    if not db_instance:
+        return None
+
+    for key, value in update_data.items():
+        if value is None:
+            continue  
+        if key == 'kind' and isinstance(value, dict):  
+            db_instance.kind_id = value.get('id') 
+        elif key == 'task' and isinstance(value, dict):  
+            db_instance.task_id = value.get('id')
+        elif key == 'sw' and isinstance(value, dict):  
+            db_instance.sw_id = value.get('id')
+        else:
+            setattr(db_instance, key, value)
+
+    db.commit()
+    db.refresh(db_instance)
+    return db_instance
+
+
+>>>>>>> master
 
 def get_log(db: Session, log_id: int):
     return db.query(models.Log).filter(models.Log.id == log_id).first()
@@ -104,3 +137,17 @@ def delete_log(db: Session, log_id: int):
         db.delete(db_log)
         db.commit()
     return db_log
+<<<<<<< HEAD
+=======
+
+def get_instance_kinds(db: Session):
+    return db.query(models.Kind).distinct().all()
+
+def get_instance_tasks(db: Session):
+    return db.query(models.Task).distinct().all()
+
+def get_instance_software(db: Session):
+    return db.query(models.Software).distinct().all()
+
+
+>>>>>>> master

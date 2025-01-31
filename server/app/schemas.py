@@ -95,8 +95,24 @@ class InstanceBase(BaseModel):
     sw: SoftwareResponse
 
 
+<<<<<<< HEAD
 class InstanceCreate(InstanceBase):
     pass
+=======
+class InstanceCreate(BaseModel):
+    manufacture_number: int
+    schedule_interval: Optional[int] = 300
+    last_ping: Optional[datetime] = None
+    username: str  
+    pwd_salt: str 
+    kind_id: int  
+    task_id: int
+    sw_id: int  
+
+    class Config:
+        orm_mode = True
+
+>>>>>>> master
 
 
 class InstanceCheckRequest(BaseModel):
@@ -114,3 +130,20 @@ class InstanceResponse(InstanceBase):
 
     class Config:
         orm_mode = True
+<<<<<<< HEAD
+=======
+
+
+class InstanceUpdate(BaseModel):
+    manufacture_number: Optional[int]
+    schedule_interval: Optional[int]
+    last_ping: Optional[datetime]
+    kind_id: Optional[int]  
+    task_id: Optional[int]  
+    sw_id: Optional[int]   
+
+    class Config:
+        orm_mode = True
+
+
+>>>>>>> master

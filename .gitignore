@@ -1,0 +1,5 @@
+.idea
+*.pyx
+*.env
+*.pyc
+server/app/data
